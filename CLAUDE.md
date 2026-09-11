@@ -8,8 +8,8 @@ no-comments or 120-column rules.
 - No comments on private implementation code. Name things properly instead.
 - Formatting is stock `dart format` — **default width, no `--line-length`**.
   That is what `pana` and pub.dev expect with zero configuration.
-  Note the Fullphysio machine's Dart is a custom Flutter-fork build whose
-  formatter can disagree with stable; CI runs official stable and is the arbiter.
+  A Dart SDK from a Flutter fork or a dev channel can format differently from
+  stable; CI runs official stable and is the arbiter.
 - `dart analyze --fatal-infos` must be clean.
 
 ## Layout

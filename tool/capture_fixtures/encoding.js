@@ -4,12 +4,15 @@
 // its v1 request encoder (qs.stringify with arrayFormat: 'indices'), using the
 // SDK's own httpClient injection seam. No network, no account.
 //
-// Must be run with the main fullphysio checkout's functions/js as the working
-// directory, so that the bare `stripe` module resolves against its installed
-// node_modules:
+// `stripe` is resolved from the working directory, so run this from any
+// directory that has the reference version installed:
 //
-//   cd /Users/ortes/Documents/Fullphysio/fullphysio/functions/js
-//   node /Users/ortes/Documents/Fullphysio/stripe_client/tool/capture_fixtures/encoding.js
+//   mkdir -p /tmp/stripe-ref && cd /tmp/stripe-ref
+//   npm install stripe@19.3.1
+//   node /path/to/stripe_client/tool/capture_fixtures/encoding.js
+//
+// Keep the installed version in step with the one recorded in
+// THIRD_PARTY_NOTICES; the fixtures are only meaningful against that version.
 
 const path = require('path');
 const fs = require('fs');

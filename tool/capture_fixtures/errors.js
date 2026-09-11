@@ -1,10 +1,11 @@
 // Captures test/fixtures/error_golden.json from the real stripe-node client
 // (not hand-written) by driving it through its `httpClient` injection seam
-// with canned HTTP responses. Run from the main Fullphysio checkout, where
-// stripe-node is actually installed:
+// with canned HTTP responses. Run it from any directory that has the
+// reference version installed:
 //
-//   cd /Users/ortes/Documents/Fullphysio/fullphysio/functions/js
-//   node /Users/ortes/Documents/Fullphysio/stripe_client/tool/capture_fixtures/errors.js
+//   mkdir -p /tmp/stripe-ref && cd /tmp/stripe-ref
+//   npm install stripe@19.3.1
+//   node /path/to/stripe_client/tool/capture_fixtures/errors.js
 //
 // `require('stripe')` is resolved against the current working directory (see
 // loadStripe below), which is why the invocation above must `cd` there first.
@@ -24,10 +25,13 @@ function loadStripe() {
     throw new Error(
       'Could not resolve the "stripe" package from ' +
         process.cwd() +
-        '. Run this script with the Fullphysio functions/js checkout as the ' +
-        'working directory, e.g.:\n' +
-        '  cd /Users/ortes/Documents/Fullphysio/fullphysio/functions/js\n' +
-        '  node ' +
+        '. Run this script from a directory with stripe-node ' +
+        STRIPE_NODE_VERSION +
+        ' installed, e.g.:\n' +
+        '  mkdir -p /tmp/stripe-ref && cd /tmp/stripe-ref\n' +
+        '  npm install stripe@' +
+        STRIPE_NODE_VERSION +
+        '\n  node ' +
         __filename
     );
   }
