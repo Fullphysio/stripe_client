@@ -1,0 +1,20 @@
+{
+  "flatScalars": "name=Ada%20Lovelace&description=First%20customer&phone=%2B14155552671",
+  "nestedObject": "address[line1]=1%20Infinite%20Loop&address[city]=Cupertino&address[country]=US",
+  "deeplyNested": "mode=payment&success_url=https%3A%2F%2Fexample.com%2Fsuccess&payment_intent_data[shipping][address][line1]=1%20Infinite%20Loop&payment_intent_data[shipping][address][city]=Cupertino&payment_intent_data[shipping][address][country]=US",
+  "arrayOfScalars": "mode=payment&success_url=https%3A%2F%2Fexample.com%2Fsuccess&payment_method_types[0]=card&payment_method_types[1]=ideal&payment_method_types[2]=bancontact",
+  "arrayOfObjects": "mode=payment&success_url=https%3A%2F%2Fexample.com%2Fsuccess&line_items[0][price]=price_123&line_items[0][quantity]=1&line_items[1][price]=price_456&line_items[1][quantity]=2",
+  "emptyArray": "mode=payment&success_url=https%3A%2F%2Fexample.com%2Fsuccess",
+  "emptyObject": "name=Empty%20Object%20Test",
+  "nestedEmptyCascade": "",
+  "presentNull": "description=",
+  "booleanTrue": "mode=payment&success_url=https%3A%2F%2Fexample.com%2Fsuccess&allow_promotion_codes=true",
+  "booleanFalse": "cancel_at_period_end=false",
+  "wholeNumber": "limit=25",
+  "negativeNumber": "balance=-1500",
+  "dateNormal": "created=1705314600",
+  "dateBeforeEpoch": "created=-1",
+  "unicodeString": "name=Zo%C3%AB%20%C3%85str%C3%B6m%20%E4%B8%AD%E6%96%87%20%F0%9F%98%80",
+  "specialCharsString": "description=a%21b%2Ac%27d%28e%29f~g%20h%26i%3Dj[k]l",
+  "expandDottedPaths": "expand[0]=data.default_payment_method&expand[1]=data.latest_invoice.payment_intent"
+}

@@ -1,0 +1,1303 @@
+{
+  "capturedFrom": {
+    "package": "stripe",
+    "version": "19.3.1"
+  },
+  "seam": "Stripe.createFetchHttpClient(fetchFn) injected as the `httpClient` client option",
+  "cases": [
+    {
+      "name": "card_error_type",
+      "note": null,
+      "input": {
+        "statusCode": 400,
+        "body": {
+          "error": {
+            "type": "card_error",
+            "message": "Your card was declined.",
+            "code": "card_declined"
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        },
+        "requestId": "req_123"
+      },
+      "rawError": {
+        "type": "card_error",
+        "message": "Your card was declined.",
+        "code": "card_declined"
+      },
+      "stripeNode": {
+        "threw": true,
+        "className": "StripeCardError",
+        "message": "Your card was declined.",
+        "code": "card_declined",
+        "type": "card_error",
+        "statusCode": 400,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      },
+      "expected": {
+        "threw": true,
+        "className": "StripeCardError",
+        "message": "Your card was declined.",
+        "code": "card_declined",
+        "type": "card_error",
+        "statusCode": 400,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      }
+    },
+    {
+      "name": "invalid_request_error_type",
+      "note": null,
+      "input": {
+        "statusCode": 400,
+        "body": {
+          "error": {
+            "type": "invalid_request_error",
+            "message": "Missing a required param."
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        },
+        "requestId": "req_123"
+      },
+      "rawError": {
+        "type": "invalid_request_error",
+        "message": "Missing a required param."
+      },
+      "stripeNode": {
+        "threw": true,
+        "className": "StripeInvalidRequestError",
+        "message": "Missing a required param.",
+        "code": null,
+        "type": "invalid_request_error",
+        "statusCode": 400,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      },
+      "expected": {
+        "threw": true,
+        "className": "StripeInvalidRequestError",
+        "message": "Missing a required param.",
+        "code": null,
+        "type": "invalid_request_error",
+        "statusCode": 400,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      }
+    },
+    {
+      "name": "api_error_type",
+      "note": null,
+      "input": {
+        "statusCode": 400,
+        "body": {
+          "error": {
+            "type": "api_error",
+            "message": "Something went wrong on our end."
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        },
+        "requestId": "req_123"
+      },
+      "rawError": {
+        "type": "api_error",
+        "message": "Something went wrong on our end."
+      },
+      "stripeNode": {
+        "threw": true,
+        "className": "StripeAPIError",
+        "message": "Something went wrong on our end.",
+        "code": null,
+        "type": "api_error",
+        "statusCode": 400,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      },
+      "expected": {
+        "threw": true,
+        "className": "StripeAPIError",
+        "message": "Something went wrong on our end.",
+        "code": null,
+        "type": "api_error",
+        "statusCode": 400,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      }
+    },
+    {
+      "name": "authentication_error_type",
+      "note": null,
+      "input": {
+        "statusCode": 400,
+        "body": {
+          "error": {
+            "type": "authentication_error",
+            "message": "Invalid API key provided."
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        },
+        "requestId": "req_123"
+      },
+      "rawError": {
+        "type": "authentication_error",
+        "message": "Invalid API key provided."
+      },
+      "stripeNode": {
+        "threw": true,
+        "className": "StripeAuthenticationError",
+        "message": "Invalid API key provided.",
+        "code": null,
+        "type": "authentication_error",
+        "statusCode": 400,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      },
+      "expected": {
+        "threw": true,
+        "className": "StripeAuthenticationError",
+        "message": "Invalid API key provided.",
+        "code": null,
+        "type": "authentication_error",
+        "statusCode": 400,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      }
+    },
+    {
+      "name": "rate_limit_error_type",
+      "note": null,
+      "input": {
+        "statusCode": 400,
+        "body": {
+          "error": {
+            "type": "rate_limit_error",
+            "message": "Too many requests hit the API too quickly."
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        },
+        "requestId": "req_123"
+      },
+      "rawError": {
+        "type": "rate_limit_error",
+        "message": "Too many requests hit the API too quickly."
+      },
+      "stripeNode": {
+        "threw": true,
+        "className": "StripeRateLimitError",
+        "message": "Too many requests hit the API too quickly.",
+        "code": null,
+        "type": "rate_limit_error",
+        "statusCode": 400,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      },
+      "expected": {
+        "threw": true,
+        "className": "StripeRateLimitError",
+        "message": "Too many requests hit the API too quickly.",
+        "code": null,
+        "type": "rate_limit_error",
+        "statusCode": 400,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      }
+    },
+    {
+      "name": "idempotency_error_type",
+      "note": null,
+      "input": {
+        "statusCode": 400,
+        "body": {
+          "error": {
+            "type": "idempotency_error",
+            "message": "Keys for idempotent requests can only be used with the same parameters they were first used with."
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        },
+        "requestId": "req_123"
+      },
+      "rawError": {
+        "type": "idempotency_error",
+        "message": "Keys for idempotent requests can only be used with the same parameters they were first used with."
+      },
+      "stripeNode": {
+        "threw": true,
+        "className": "StripeIdempotencyError",
+        "message": "Keys for idempotent requests can only be used with the same parameters they were first used with.",
+        "code": null,
+        "type": "idempotency_error",
+        "statusCode": 400,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      },
+      "expected": {
+        "threw": true,
+        "className": "StripeIdempotencyError",
+        "message": "Keys for idempotent requests can only be used with the same parameters they were first used with.",
+        "code": null,
+        "type": "idempotency_error",
+        "statusCode": 400,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      }
+    },
+    {
+      "name": "invalid_grant_type",
+      "note": null,
+      "input": {
+        "statusCode": 400,
+        "body": {
+          "error": {
+            "type": "invalid_grant",
+            "message": "This authorization code has already been used."
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        },
+        "requestId": "req_123"
+      },
+      "rawError": {
+        "type": "invalid_grant",
+        "message": "This authorization code has already been used."
+      },
+      "stripeNode": {
+        "threw": true,
+        "className": "StripeInvalidGrantError",
+        "message": "This authorization code has already been used.",
+        "code": null,
+        "type": "invalid_grant",
+        "statusCode": 400,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      },
+      "expected": {
+        "threw": true,
+        "className": "StripeInvalidGrantError",
+        "message": "This authorization code has already been used.",
+        "code": null,
+        "type": "invalid_grant",
+        "statusCode": 400,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      }
+    },
+    {
+      "name": "unknown_type_falls_back",
+      "note": null,
+      "input": {
+        "statusCode": 400,
+        "body": {
+          "error": {
+            "type": "a_type_this_client_has_never_heard_of",
+            "message": "From the future."
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        },
+        "requestId": "req_123"
+      },
+      "rawError": {
+        "type": "a_type_this_client_has_never_heard_of",
+        "message": "From the future."
+      },
+      "stripeNode": {
+        "threw": true,
+        "className": "StripeUnknownError",
+        "message": "From the future.",
+        "code": null,
+        "type": "a_type_this_client_has_never_heard_of",
+        "statusCode": 400,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      },
+      "expected": {
+        "threw": true,
+        "className": "StripeUnknownError",
+        "message": "From the future.",
+        "code": null,
+        "type": "a_type_this_client_has_never_heard_of",
+        "statusCode": 400,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      }
+    },
+    {
+      "name": "status_401_overrides_card_error_type",
+      "note": "HTTP 401 short-circuits to StripeAuthenticationError before the body's `type` is ever consulted, even though the body claims to be a card_error. This is the precedence trap: status beats type.",
+      "input": {
+        "statusCode": 401,
+        "body": {
+          "error": {
+            "type": "card_error",
+            "message": "Would be a card error if type were consulted.",
+            "code": "card_declined"
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        },
+        "requestId": "req_123"
+      },
+      "rawError": {
+        "type": "card_error",
+        "message": "Would be a card error if type were consulted.",
+        "code": "card_declined"
+      },
+      "stripeNode": {
+        "threw": true,
+        "className": "StripeAuthenticationError",
+        "message": "Would be a card error if type were consulted.",
+        "code": "card_declined",
+        "type": "card_error",
+        "statusCode": 401,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      },
+      "expected": {
+        "threw": true,
+        "className": "StripeAuthenticationError",
+        "message": "Would be a card error if type were consulted.",
+        "code": "card_declined",
+        "type": "card_error",
+        "statusCode": 401,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      }
+    },
+    {
+      "name": "status_403_overrides_invalid_request_error_type",
+      "note": "HTTP 403 short-circuits to StripePermissionError before the body's `type` is ever consulted.",
+      "input": {
+        "statusCode": 403,
+        "body": {
+          "error": {
+            "type": "invalid_request_error",
+            "message": "Would be an invalid_request_error if type were consulted."
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        },
+        "requestId": "req_123"
+      },
+      "rawError": {
+        "type": "invalid_request_error",
+        "message": "Would be an invalid_request_error if type were consulted."
+      },
+      "stripeNode": {
+        "threw": true,
+        "className": "StripePermissionError",
+        "message": "Would be an invalid_request_error if type were consulted.",
+        "code": null,
+        "type": "invalid_request_error",
+        "statusCode": 403,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      },
+      "expected": {
+        "threw": true,
+        "className": "StripePermissionError",
+        "message": "Would be an invalid_request_error if type were consulted.",
+        "code": null,
+        "type": "invalid_request_error",
+        "statusCode": 403,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      }
+    },
+    {
+      "name": "status_429_overrides_api_error_type",
+      "note": "HTTP 429 short-circuits to StripeRateLimitError before the body's `type` is ever consulted.",
+      "input": {
+        "statusCode": 429,
+        "body": {
+          "error": {
+            "type": "api_error",
+            "message": "Would be an api_error if type were consulted."
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        },
+        "requestId": "req_123"
+      },
+      "rawError": {
+        "type": "api_error",
+        "message": "Would be an api_error if type were consulted."
+      },
+      "stripeNode": {
+        "threw": true,
+        "className": "StripeRateLimitError",
+        "message": "Would be an api_error if type were consulted.",
+        "code": null,
+        "type": "api_error",
+        "statusCode": 429,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      },
+      "expected": {
+        "threw": true,
+        "className": "StripeRateLimitError",
+        "message": "Would be an api_error if type were consulted.",
+        "code": null,
+        "type": "api_error",
+        "statusCode": 429,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      }
+    },
+    {
+      "name": "card_error_402_with_decline_code_and_charge",
+      "note": null,
+      "input": {
+        "statusCode": 402,
+        "body": {
+          "error": {
+            "type": "card_error",
+            "message": "Your card was declined.",
+            "code": "card_declined",
+            "decline_code": "insufficient_funds",
+            "charge": "ch_capture_fixture_charge",
+            "payment_intent": {
+              "id": "pi_capture_fixture",
+              "object": "payment_intent",
+              "status": "requires_payment_method"
+            },
+            "payment_method": {
+              "id": "pm_capture_fixture",
+              "object": "payment_method",
+              "type": "card"
+            }
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        },
+        "requestId": "req_123"
+      },
+      "rawError": {
+        "type": "card_error",
+        "message": "Your card was declined.",
+        "code": "card_declined",
+        "decline_code": "insufficient_funds",
+        "charge": "ch_capture_fixture_charge",
+        "payment_intent": {
+          "id": "pi_capture_fixture",
+          "object": "payment_intent",
+          "status": "requires_payment_method"
+        },
+        "payment_method": {
+          "id": "pm_capture_fixture",
+          "object": "payment_method",
+          "type": "card"
+        }
+      },
+      "stripeNode": {
+        "threw": true,
+        "className": "StripeCardError",
+        "message": "Your card was declined.",
+        "code": "card_declined",
+        "type": "card_error",
+        "statusCode": 402,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": "ch_capture_fixture_charge",
+        "declineCode": "insufficient_funds",
+        "paymentIntent": {
+          "id": "pi_capture_fixture",
+          "object": "payment_intent",
+          "status": "requires_payment_method"
+        },
+        "paymentMethod": {
+          "id": "pm_capture_fixture",
+          "object": "payment_method",
+          "type": "card"
+        },
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      },
+      "expected": {
+        "threw": true,
+        "className": "StripeCardError",
+        "message": "Your card was declined.",
+        "code": "card_declined",
+        "type": "card_error",
+        "statusCode": 402,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": "ch_capture_fixture_charge",
+        "declineCode": "insufficient_funds",
+        "paymentIntent": {
+          "id": "pi_capture_fixture",
+          "object": "payment_intent",
+          "status": "requires_payment_method"
+        },
+        "paymentMethod": {
+          "id": "pm_capture_fixture",
+          "object": "payment_method",
+          "type": "card"
+        },
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      }
+    },
+    {
+      "name": "invalid_request_400_with_param_and_doc_url",
+      "note": null,
+      "input": {
+        "statusCode": 400,
+        "body": {
+          "error": {
+            "type": "invalid_request_error",
+            "message": "Missing required param: customer.",
+            "param": "customer",
+            "doc_url": "https://stripe.com/docs/error-codes#parameter-missing"
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        },
+        "requestId": "req_123"
+      },
+      "rawError": {
+        "type": "invalid_request_error",
+        "message": "Missing required param: customer.",
+        "param": "customer",
+        "doc_url": "https://stripe.com/docs/error-codes#parameter-missing"
+      },
+      "stripeNode": {
+        "threw": true,
+        "className": "StripeInvalidRequestError",
+        "message": "Missing required param: customer.",
+        "code": null,
+        "type": "invalid_request_error",
+        "statusCode": 400,
+        "requestId": "req_123",
+        "param": "customer",
+        "docUrl": "https://stripe.com/docs/error-codes#parameter-missing",
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      },
+      "expected": {
+        "threw": true,
+        "className": "StripeInvalidRequestError",
+        "message": "Missing required param: customer.",
+        "code": null,
+        "type": "invalid_request_error",
+        "statusCode": 400,
+        "requestId": "req_123",
+        "param": "customer",
+        "docUrl": "https://stripe.com/docs/error-codes#parameter-missing",
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      }
+    },
+    {
+      "name": "api_error_500",
+      "note": null,
+      "input": {
+        "statusCode": 500,
+        "body": {
+          "error": {
+            "type": "api_error",
+            "message": "An error occurred with our API."
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        },
+        "requestId": "req_123"
+      },
+      "rawError": {
+        "type": "api_error",
+        "message": "An error occurred with our API."
+      },
+      "stripeNode": {
+        "threw": true,
+        "className": "StripeAPIError",
+        "message": "An error occurred with our API.",
+        "code": null,
+        "type": "api_error",
+        "statusCode": 500,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      },
+      "expected": {
+        "threw": true,
+        "className": "StripeAPIError",
+        "message": "An error occurred with our API.",
+        "code": null,
+        "type": "api_error",
+        "statusCode": 500,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      }
+    },
+    {
+      "name": "empty_body",
+      "note": null,
+      "input": {
+        "statusCode": 500,
+        "body": "",
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        },
+        "requestId": "req_123"
+      },
+      "rawError": null,
+      "stripeNode": {
+        "threw": true,
+        "className": "StripeAPIError",
+        "message": "Invalid JSON received from the Stripe API",
+        "code": null,
+        "type": null,
+        "statusCode": null,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": null
+      },
+      "expected": {
+        "threw": true,
+        "className": "StripeAPIError",
+        "message": "Invalid JSON received from the Stripe API",
+        "code": null,
+        "type": null,
+        "statusCode": null,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": null
+      }
+    },
+    {
+      "name": "non_json_body",
+      "note": null,
+      "input": {
+        "statusCode": 502,
+        "body": "<html><body>Bad Gateway</body></html>",
+        "headers": {
+          "content-type": "text/html",
+          "request-id": "req_123"
+        },
+        "requestId": "req_123"
+      },
+      "rawError": null,
+      "stripeNode": {
+        "threw": true,
+        "className": "StripeAPIError",
+        "message": "Invalid JSON received from the Stripe API",
+        "code": null,
+        "type": null,
+        "statusCode": null,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": null
+      },
+      "expected": {
+        "threw": true,
+        "className": "StripeAPIError",
+        "message": "Invalid JSON received from the Stripe API",
+        "code": null,
+        "type": null,
+        "statusCode": null,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": null
+      }
+    },
+    {
+      "name": "no_error_key",
+      "note": "stripe-node treats a body with no `error` key as a successful response and never constructs an error at all (see stripeNode.threw: false above). stripe_client's stripeErrorFromResponse is only ever invoked once the caller already knows the response failed (typically via a non-2xx status), so it cannot special-case \"not actually an error\" -- it falls back to the same handling as an undecodable body, below.",
+      "input": {
+        "statusCode": 400,
+        "body": {
+          "foo": "bar"
+        },
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        },
+        "requestId": "req_123"
+      },
+      "rawError": null,
+      "stripeNode": {
+        "threw": false
+      },
+      "expected": {
+        "threw": true,
+        "className": "StripeAPIError",
+        "message": "Invalid JSON received from the Stripe API",
+        "code": null,
+        "type": null,
+        "statusCode": null,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": null,
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": null,
+        "setupIntent": null,
+        "source": null,
+        "userMessage": null,
+        "headers": null
+      }
+    },
+    {
+      "name": "all_remaining_fields_pass_through",
+      "note": null,
+      "input": {
+        "statusCode": 400,
+        "body": {
+          "error": {
+            "type": "invalid_request_error",
+            "message": "Illustrative error exercising every remaining field.",
+            "detail": "Some additional detail text.",
+            "user_message": "A message safe to show your customer.",
+            "payment_method_type": "card",
+            "setup_intent": {
+              "id": "seti_capture_fixture",
+              "object": "setup_intent",
+              "status": "requires_payment_method"
+            },
+            "source": {
+              "id": "src_capture_fixture",
+              "object": "source",
+              "type": "card"
+            }
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        },
+        "requestId": "req_123"
+      },
+      "rawError": {
+        "type": "invalid_request_error",
+        "message": "Illustrative error exercising every remaining field.",
+        "detail": "Some additional detail text.",
+        "user_message": "A message safe to show your customer.",
+        "payment_method_type": "card",
+        "setup_intent": {
+          "id": "seti_capture_fixture",
+          "object": "setup_intent",
+          "status": "requires_payment_method"
+        },
+        "source": {
+          "id": "src_capture_fixture",
+          "object": "source",
+          "type": "card"
+        }
+      },
+      "stripeNode": {
+        "threw": true,
+        "className": "StripeInvalidRequestError",
+        "message": "Illustrative error exercising every remaining field.",
+        "code": null,
+        "type": "invalid_request_error",
+        "statusCode": 400,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": "Some additional detail text.",
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": "card",
+        "setupIntent": {
+          "id": "seti_capture_fixture",
+          "object": "setup_intent",
+          "status": "requires_payment_method"
+        },
+        "source": {
+          "id": "src_capture_fixture",
+          "object": "source",
+          "type": "card"
+        },
+        "userMessage": "A message safe to show your customer.",
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      },
+      "expected": {
+        "threw": true,
+        "className": "StripeInvalidRequestError",
+        "message": "Illustrative error exercising every remaining field.",
+        "code": null,
+        "type": "invalid_request_error",
+        "statusCode": 400,
+        "requestId": "req_123",
+        "param": null,
+        "docUrl": null,
+        "detail": "Some additional detail text.",
+        "charge": null,
+        "declineCode": null,
+        "paymentIntent": null,
+        "paymentMethod": null,
+        "paymentMethodType": "card",
+        "setupIntent": {
+          "id": "seti_capture_fixture",
+          "object": "setup_intent",
+          "status": "requires_payment_method"
+        },
+        "source": {
+          "id": "src_capture_fixture",
+          "object": "source",
+          "type": "card"
+        },
+        "userMessage": "A message safe to show your customer.",
+        "headers": {
+          "content-type": "application/json",
+          "request-id": "req_123"
+        }
+      }
+    }
+  ]
+}

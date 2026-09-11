@@ -1,0 +1,95 @@
+spec:
+  tag: v2111
+  file: openapi/spec3.sdk.json
+
+resources:
+  - checkout.session
+  - billing_portal.session
+  - customer
+  - subscription
+  - subscription_item
+  - plan
+  - price
+  - product
+  - invoice
+  - line_item
+  - promotion_code
+  - coupon
+  - discount
+  - event
+  - customer_balance_transaction
+  - payment_intent
+  - charge
+  - refund
+  - setup_intent
+  - payment_method
+
+paymentMethodTypes:
+  [
+    card,
+    link,
+    sepa_debit,
+    paypal,
+    bancontact,
+    ideal,
+    klarna,
+    us_bank_account,
+    customer_balance,
+  ]
+
+prune:
+  - id: account
+    reason: "Connect only. Reached via Charge/Invoice.on_behalf_of."
+  - id: dispute
+    reason: "Reached via Charge.dispute; not in scope."
+  - id: card
+    reason: "Legacy Sources API Card, superseded by payment_method_card."
+  - id: bank_account
+    reason: "Legacy Sources API."
+  - id: source
+    reason: "Legacy Sources API root."
+  - id: person
+    reason: "Connect KYC, only via Account."
+  - id: deleted_card
+    reason: "Legacy Sources API Card (deleted variant)."
+  - id: deleted_bank_account
+    reason: "Legacy Sources API BankAccount (deleted variant)."
+  - id: application_fee
+    reason: >-
+      Connect only. Reached via Charge.application_fee and
+      Invoice/Subscription's application_fee_percent context; not in scope.
+  - id: transfer
+    reason: >-
+      Connect only. Reached via Charge.transfer/source_transfer and
+      Subscription.transfer_data; not in scope.
+  - id: transfer_reversal
+    reason: "Connect only. Reached via Refund's transfer-reversal field."
+  - id: payment_record
+    reason: >-
+      Reached via Invoice.payments. A distinct, separately documented
+      Payments-primitives ledger API that duplicates payment-method-detail
+      types already generated via Charge/PaymentIntent, in a parallel shape;
+      not one of the 20 seed resources.
+  - id: subscription_schedule
+    reason: >-
+      Reached via Subscription.schedule. Subscription Schedules is a
+      distinct, separately documented resource (its own CRUD API and
+      "phases" model) deliberately left off the seed list; only Subscription
+      and SubscriptionItem are in scope.
+  - id: billing.credit_balance_transaction
+    reason: >-
+      Reached via Invoice/CreditNote.*pretax_credit_amounts. Billing Credits
+      is a distinct, separately documented resource (its own
+      billing/credit_grants API); Invoice and CreditNote only need the
+      amount they carry, not the full credit-grant graph.
+  - id: balance_transaction_source
+    reason: >-
+      Reached via BalanceTransaction.source (itself reached via
+      Charge/Refund.balance_transaction). A 16-way anyOf across every
+      Stripe product that can move the platform balance -- Issuing
+      (issuing.authorization/dispute/transaction, and transitively the
+      entire Issuing card/cardholder/network-token graph), Connect payouts
+      and transfers (payout, transfer, transfer_reversal,
+      connect_collection_transfer, application_fee, reserve_transaction),
+      and topups/tax withholding (topup, tax_deducted_at_source). None of
+      those products are in scope; only Charge and Refund themselves are.

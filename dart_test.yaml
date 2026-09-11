@@ -1,0 +1,5 @@
+tags:
+  integration:
+    skip: "Hits the live Stripe API. Run with: dart test --tags integration --run-skipped"
+  stripe_mock:
+    skip: "Needs a local stripe-mock. Run with: dart test --tags stripe_mock --run-skipped"
