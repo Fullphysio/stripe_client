@@ -11,6 +11,25 @@
 /// OpenAPI specification at revision v2111.
 library;
 
-// Exports are added here as each module lands. Keep this list selective:
-// internal plumbing (form encoding, crypto helpers, header utilities) stays
-// unexported.
+export 'src/core/exceptions.dart' show StripeDecodeException;
+export 'src/core/expandable.dart' show Expandable, StripeStub;
+export 'src/core/json_reading.dart' show StripeJsonReading;
+export 'src/core/stripe_list.dart' show StripeList;
+export 'src/errors.dart'
+    show
+        StripeAPIError,
+        StripeAuthenticationError,
+        StripeCardError,
+        StripeConnectionError,
+        StripeError,
+        StripeIdempotencyError,
+        StripeInvalidGrantError,
+        StripeInvalidRequestError,
+        StripePermissionError,
+        StripeRateLimitError,
+        StripeSignatureVerificationError,
+        StripeUnknownError;
+
+// Internal plumbing stays unexported: form encoding, crypto helpers and
+// header utilities are implementation detail, not API. The client, resources
+// and generated models are added here as those modules land.
