@@ -1,3 +1,9 @@
+## 0.4.1
+
+- Export the Checkout Session option classes and the invoice tax types added
+  in 0.4.0. They were implemented but missing from the barrel, so callers
+  could not name them without reaching into `src/`.
+
 ## 0.4.0
 
 - Add the remaining Checkout Session create options the Fullphysio checkout

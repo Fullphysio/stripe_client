@@ -35,11 +35,15 @@ export 'src/resources/billing_portal_session.dart'
 export 'src/resources/checkout_session.dart'
     show
         CheckoutSession,
+        CheckoutSessionAutomaticTaxParams,
         CheckoutSessionCreateParams,
+        CheckoutSessionCustomerUpdateParams,
         CheckoutSessionDiscountParams,
         CheckoutSessionLineItemParams,
         CheckoutSessionMode,
-        CheckoutSessionSubscriptionDataParams;
+        CheckoutSessionPhoneNumberCollectionParams,
+        CheckoutSessionSubscriptionDataParams,
+        CheckoutSessionTaxIdCollectionParams;
 export 'src/resources/coupon.dart' show Coupon;
 export 'src/resources/customer.dart'
     show
@@ -50,7 +54,13 @@ export 'src/resources/customer.dart'
 export 'src/resources/discount.dart' show Discount, DiscountSource;
 export 'src/resources/event.dart' show Event, EventData;
 export 'src/resources/invoice.dart'
-    show Invoice, InvoiceDiscountAmount, InvoiceLineItem, InvoiceTaxAmount;
+    show
+        Invoice,
+        InvoiceDiscountAmount,
+        InvoiceLineItem,
+        InvoiceTaxAmount,
+        InvoiceTotalTax,
+        InvoiceTotalTaxRateDetails;
 export 'src/resources/plan.dart' show Plan;
 export 'src/resources/price.dart' show Price, PriceRecurring;
 export 'src/resources/product.dart' show Product;
