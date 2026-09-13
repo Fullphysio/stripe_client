@@ -67,6 +67,29 @@ void main() {
       });
     });
 
+    test('omits locale from the map when not provided', () {
+      const params = BillingPortalSessionCreateParams(
+        customer: 'cus_123',
+        returnUrl: 'https://example.com/account',
+      );
+
+      expect(params.toJson(), isNot(contains('locale')));
+    });
+
+    test('encodes locale when provided', () {
+      const params = BillingPortalSessionCreateParams(
+        customer: 'cus_123',
+        returnUrl: 'https://example.com/account',
+        locale: 'fr',
+      );
+
+      expect(params.toJson(), {
+        'customer': 'cus_123',
+        'return_url': 'https://example.com/account',
+        'locale': 'fr',
+      });
+    });
+
     test('toString summarises customer and returnUrl', () {
       const params = BillingPortalSessionCreateParams(
         customer: 'cus_123',

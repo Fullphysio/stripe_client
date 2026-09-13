@@ -7,10 +7,12 @@ import '../transport/stripe_client.dart';
 final class BillingPortalSessionCreateParams {
   /// Creates the parameters for a Billing Portal session for [customer],
   /// which redirects back to [returnUrl] once the customer is done managing
-  /// their billing.
+  /// their billing. Pass [locale] to override the UI language; omit it to
+  /// let Stripe auto-detect one.
   const BillingPortalSessionCreateParams({
     required this.customer,
     required this.returnUrl,
+    this.locale,
   });
 
   /// The ID of an existing customer.
@@ -20,11 +22,19 @@ final class BillingPortalSessionCreateParams {
   /// portal.
   final String returnUrl;
 
+  /// The IETF language tag Stripe renders the Billing Portal UI in (for
+  /// example `'fr'` or `'en'`) — the same locale override Stripe accepts for
+  /// Checkout Sessions.
+  ///
+  /// Optional: omit it to let Stripe auto-detect the customer's locale.
+  final String? locale;
+
   /// Encodes these parameters the way
   /// [BillingPortalSessionsService.create] sends them.
   Map<String, Object?> toJson() => {
         'customer': customer,
         'return_url': returnUrl,
+        if (locale != null) 'locale': locale,
       };
 
   @override
