@@ -12,6 +12,7 @@
 library;
 
 export 'src/core/exceptions.dart' show StripeDecodeException;
+export 'src/core/expand_params.dart' show ExpandParams;
 export 'src/core/expandable.dart' show Expandable, StripeStub;
 export 'src/core/json_reading.dart' show StripeJsonReading;
 export 'src/core/stripe_list.dart' show StripeList;
@@ -31,7 +32,39 @@ export 'src/errors.dart'
         StripeUnknownError;
 export 'src/resources/billing_portal_session.dart'
     show BillingPortalSession, BillingPortalSessionCreateParams;
+export 'src/resources/checkout_session.dart'
+    show
+        CheckoutSession,
+        CheckoutSessionCreateParams,
+        CheckoutSessionDiscountParams,
+        CheckoutSessionLineItemParams,
+        CheckoutSessionMode,
+        CheckoutSessionSubscriptionDataParams;
+export 'src/resources/coupon.dart' show Coupon;
+export 'src/resources/customer.dart'
+    show
+        Customer,
+        CustomerBalanceTransaction,
+        CustomerCreateBalanceTransactionParams,
+        CustomerUpdateParams;
+export 'src/resources/discount.dart' show Discount, DiscountSource;
+export 'src/resources/event.dart' show Event, EventData;
+export 'src/resources/invoice.dart'
+    show Invoice, InvoiceDiscountAmount, InvoiceLineItem, InvoiceTaxAmount;
+export 'src/resources/plan.dart' show Plan;
+export 'src/resources/price.dart' show Price, PriceRecurring;
+export 'src/resources/product.dart' show Product;
+export 'src/resources/promotion_code.dart'
+    show
+        PromotionCode,
+        PromotionCodeCreateParams,
+        PromotionCodeListParams,
+        PromotionCodePromotion,
+        PromotionCodeRestrictions;
+export 'src/resources/subscription.dart'
+    show Subscription, SubscriptionItem, SubscriptionListParams;
 export 'src/transport/stripe_client.dart' show StripeClient;
+export 'src/webhooks.dart' show StripeWebhooks;
 
 // Internal plumbing stays unexported: form encoding, crypto helpers, retry
 // policy and the namespace/service wiring behind StripeClient are

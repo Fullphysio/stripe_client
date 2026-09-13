@@ -1,3 +1,16 @@
+## 0.3.0
+
+- Add the resources needed to port the Cloud Functions billing surface off
+  `stripe-node`: `Customer`, `Subscription` (with `SubscriptionItem`, whose
+  `currentPeriodStart`/`currentPeriodEnd` fix the crash `client_stripe` hit
+  when Stripe removed those fields from the subscription itself),
+  `Invoice`, `PromotionCode`, `Coupon`, `Discount`, `Price`, `Plan`,
+  `Product`, `CheckoutSession`, and `Event`.
+- Add `StripeClient.customers`, `.subscriptions`, `.invoices`,
+  `.promotionCodes`, `.prices`, `.products`, and `.checkout.sessions`.
+- Add `StripeWebhooks.constructEvent` for verifying and decoding webhook
+  deliveries.
+
 ## 0.2.1
 
 - Add the missing `locale` parameter to `BillingPortalSessionCreateParams`,

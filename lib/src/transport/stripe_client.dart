@@ -6,6 +6,13 @@ import '../crypto_util.dart';
 import '../errors.dart';
 import '../form_encoding.dart';
 import '../resources/billing_portal_session.dart';
+import '../resources/checkout_session.dart';
+import '../resources/customer.dart';
+import '../resources/invoice.dart';
+import '../resources/price.dart';
+import '../resources/product.dart';
+import '../resources/promotion_code.dart';
+import '../resources/subscription.dart';
 import 'retry_policy.dart';
 
 const String _stripeApiVersion = '2025-11-17.clover';
@@ -46,6 +53,7 @@ final class StripeClient {
         _httpClient = httpClient ?? http.Client(),
         _ownsHttpClient = httpClient == null {
     billingPortal = BillingPortalNamespace(this);
+    checkout = CheckoutNamespace(this);
   }
 
   final String _apiKey;
@@ -70,6 +78,27 @@ final class StripeClient {
 
   /// Billing Portal resources: `client.billingPortal.sessions.create(...)`.
   late final BillingPortalNamespace billingPortal;
+
+  /// Checkout resources: `client.checkout.sessions.create(...)`.
+  late final CheckoutNamespace checkout;
+
+  /// Customer operations: `client.customers.retrieve(id)`.
+  late final CustomersService customers = CustomersService(this);
+
+  /// Promotion Code operations: `client.promotionCodes.create(...)`.
+  late final PromotionCodesService promotionCodes = PromotionCodesService(this);
+
+  /// Subscription operations: `client.subscriptions.retrieve(id)`.
+  late final SubscriptionsService subscriptions = SubscriptionsService(this);
+
+  /// Invoice operations: `client.invoices.retrieve(id)`.
+  late final InvoicesService invoices = InvoicesService(this);
+
+  /// Price operations: `client.prices.retrieve(id)`.
+  late final PricesService prices = PricesService(this);
+
+  /// Product operations: `client.products.retrieve(id)`.
+  late final ProductsService products = ProductsService(this);
 
   /// Sends one Stripe API request and returns its decoded JSON body.
   ///
@@ -199,6 +228,18 @@ final class BillingPortalNamespace {
   /// Billing Portal Session operations.
   late final BillingPortalSessionsService sessions =
       BillingPortalSessionsService(_client);
+}
+
+/// Checkout resources: currently just [CheckoutNamespace.sessions].
+final class CheckoutNamespace {
+  /// Creates the namespace backed by [_client].
+  CheckoutNamespace(this._client);
+
+  final StripeClient _client;
+
+  /// Checkout Session operations.
+  late final CheckoutSessionsService sessions =
+      CheckoutSessionsService(_client);
 }
 
 StripeError _errorFromResponse(http.Response response) {
