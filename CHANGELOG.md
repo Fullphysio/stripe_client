@@ -1,3 +1,13 @@
+## 0.4.0
+
+- Add the remaining Checkout Session create options the Fullphysio checkout
+  flow needs: `phoneNumberCollection`, `taxIdCollection`, `automaticTax`,
+  `customerUpdate` and `billingAddressCollection`.
+- Decode `total_taxes` on `Invoice` alongside the legacy `total_tax_amounts`.
+  Stripe reshaped that field, so summing only the old list silently reports
+  zero tax on newer API versions; the new `totalTaxAmount` getter reads
+  whichever shape the account actually returns.
+
 ## 0.3.0
 
 - Add the resources needed to port the Cloud Functions billing surface off

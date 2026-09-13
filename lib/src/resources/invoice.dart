@@ -77,6 +77,76 @@ final class InvoiceTaxAmount {
       'InvoiceTaxAmount(amount: $amount, inclusive: $inclusive)';
 }
 
+/// Identifies the tax rate behind one [InvoiceTotalTax] entry, when Stripe
+/// attributes the tax to a specific tax rate rather than another mechanism.
+///
+/// See https://stripe.com/docs/api/invoices/object#invoice_object-total_taxes.
+final class InvoiceTotalTaxRateDetails {
+  /// Creates tax rate details directly from an already-decoded [taxRate] id.
+  const InvoiceTotalTaxRateDetails({this.taxRate});
+
+  /// Decodes [json] into [InvoiceTotalTaxRateDetails].
+  factory InvoiceTotalTaxRateDetails.fromJson(Map<String, Object?> json) =>
+      InvoiceTotalTaxRateDetails(taxRate: json.optString('tax_rate'));
+
+  /// The id of the tax rate this tax amount was calculated from.
+  final String? taxRate;
+
+  @override
+  String toString() => 'InvoiceTotalTaxRateDetails(taxRate: $taxRate)';
+}
+
+/// One entry of an [Invoice]'s `total_taxes` array — the tax reporting
+/// shape used by accounts on the API version this package pins
+/// (`2025-11-17.clover`), replacing the older [InvoiceTaxAmount] shape.
+///
+/// See https://stripe.com/docs/api/invoices/object#invoice_object-total_taxes.
+final class InvoiceTotalTax {
+  /// Creates a total tax entry directly from already-decoded fields.
+  const InvoiceTotalTax({
+    this.amount,
+    this.taxBehavior,
+    this.taxabilityReason,
+    this.taxableAmount,
+    this.taxRateDetails,
+  });
+
+  /// Decodes [json] into an [InvoiceTotalTax].
+  factory InvoiceTotalTax.fromJson(Map<String, Object?> json) =>
+      InvoiceTotalTax(
+        amount: json.optInt('amount'),
+        taxBehavior: json.optString('tax_behavior'),
+        taxabilityReason: json.optString('taxability_reason'),
+        taxableAmount: json.optInt('taxable_amount'),
+        taxRateDetails: json.optNested(
+          'tax_rate_details',
+          InvoiceTotalTaxRateDetails.fromJson,
+        ),
+      );
+
+  /// The amount, in cents (or local equivalent), of this tax.
+  final int? amount;
+
+  /// Whether this tax is `'inclusive'` or `'exclusive'` of the line items'
+  /// prices.
+  final String? taxBehavior;
+
+  /// The reasoning behind this tax, for example `'product_exempt'`.
+  final String? taxabilityReason;
+
+  /// The amount, in cents (or local equivalent), on which this tax was
+  /// calculated.
+  final int? taxableAmount;
+
+  /// The tax rate this amount was calculated from, when Stripe attributes
+  /// it to one.
+  final InvoiceTotalTaxRateDetails? taxRateDetails;
+
+  @override
+  String toString() =>
+      'InvoiceTotalTax(amount: $amount, taxBehavior: $taxBehavior)';
+}
+
 /// The aggregate discount amount for one discount applied across an
 /// [Invoice]'s line items.
 ///
@@ -126,6 +196,7 @@ final class Invoice {
     this.currency,
     this.discounts = const [],
     this.lines,
+    this.totalTaxes = const [],
     this.totalTaxAmounts = const [],
     this.totalDiscountAmounts = const [],
   });
@@ -152,6 +223,11 @@ final class Invoice {
           'lines',
           (linesJson) => StripeList<InvoiceLineItem>.fromJson(
               linesJson, InvoiceLineItem.fromJson),
+        ),
+        totalTaxes: json.optList<InvoiceTotalTax>(
+          'total_taxes',
+          (element) =>
+              InvoiceTotalTax.fromJson(element as Map<String, Object?>),
         ),
         totalTaxAmounts: json.optList<InvoiceTaxAmount>(
           'total_tax_amounts',
@@ -198,13 +274,49 @@ final class Invoice {
   /// The individual line items that make up this invoice.
   final StripeList<InvoiceLineItem>? lines;
 
+  /// The aggregate tax information of all line items, decoded from
+  /// `total_taxes` — the shape sent by accounts on this package's pinned
+  /// API version (`2025-11-17.clover`) or later. Prefer [totalTaxAmount]
+  /// over reading this list directly.
+  final List<InvoiceTotalTax> totalTaxes;
+
   /// The aggregate tax amounts, one per tax rate, calculated across every
-  /// line item.
+  /// line item, decoded from the legacy `total_tax_amounts` field. Stripe
+  /// replaced this shape with `total_taxes` ([totalTaxes]) in later API
+  /// versions; this is kept for accounts still pinned to an older one.
+  /// Prefer [totalTaxAmount] over reading this list directly.
   final List<InvoiceTaxAmount> totalTaxAmounts;
 
   /// The aggregate discount amounts, one per discount, calculated across
   /// every line item.
   final List<InvoiceDiscountAmount> totalDiscountAmounts;
+
+  /// This invoice's total tax, in cents (or local equivalent), summed from
+  /// whichever of the two tax shapes Stripe populated.
+  ///
+  /// Stripe reshaped invoice tax reporting between API versions: accounts
+  /// on `2025-11-17.clover` (this package's pinned version) or later send
+  /// `total_taxes` ([totalTaxes]), a richer per-tax-rate breakdown; accounts
+  /// still pinned to an older API version instead send the legacy
+  /// `total_tax_amounts` shape ([totalTaxAmounts]). The two are never both
+  /// populated for the same invoice. Read this getter rather than either
+  /// list directly — code that only sums [totalTaxAmounts] silently reports
+  /// zero tax for an account that has moved to the newer API version, which
+  /// is exactly the class of bug this package exists to avoid.
+  ///
+  /// Returns `null`, not `0`, when neither field is populated — meaning tax
+  /// was not calculated on this invoice at all, which is distinct from a
+  /// genuinely zero-tax invoice (which returns `0`).
+  int? get totalTaxAmount {
+    if (totalTaxes.isNotEmpty) {
+      return totalTaxes.fold<int>(0, (sum, tax) => sum + (tax.amount ?? 0));
+    }
+    if (totalTaxAmounts.isNotEmpty) {
+      return totalTaxAmounts.fold<int>(
+          0, (sum, tax) => sum + (tax.amount ?? 0));
+    }
+    return null;
+  }
 
   @override
   String toString() =>

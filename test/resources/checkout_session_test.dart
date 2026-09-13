@@ -83,6 +83,80 @@ void main() {
     });
   });
 
+  group('CheckoutSessionPhoneNumberCollectionParams.toJson', () {
+    test('encodes enabled', () {
+      const params = CheckoutSessionPhoneNumberCollectionParams(enabled: true);
+      expect(params.toJson(), {'enabled': true});
+    });
+
+    test('toString summarises enabled', () {
+      const params = CheckoutSessionPhoneNumberCollectionParams(enabled: true);
+      expect(
+        params.toString(),
+        'CheckoutSessionPhoneNumberCollectionParams(enabled: true)',
+      );
+    });
+  });
+
+  group('CheckoutSessionTaxIdCollectionParams.toJson', () {
+    test('encodes enabled', () {
+      const params = CheckoutSessionTaxIdCollectionParams(enabled: true);
+      expect(params.toJson(), {'enabled': true});
+    });
+
+    test('toString summarises enabled', () {
+      const params = CheckoutSessionTaxIdCollectionParams(enabled: true);
+      expect(
+        params.toString(),
+        'CheckoutSessionTaxIdCollectionParams(enabled: true)',
+      );
+    });
+  });
+
+  group('CheckoutSessionAutomaticTaxParams.toJson', () {
+    test('encodes enabled', () {
+      const params = CheckoutSessionAutomaticTaxParams(enabled: true);
+      expect(params.toJson(), {'enabled': true});
+    });
+
+    test('toString summarises enabled', () {
+      const params = CheckoutSessionAutomaticTaxParams(enabled: true);
+      expect(
+        params.toString(),
+        'CheckoutSessionAutomaticTaxParams(enabled: true)',
+      );
+    });
+  });
+
+  group('CheckoutSessionCustomerUpdateParams.toJson', () {
+    test('encodes every field when given', () {
+      const params = CheckoutSessionCustomerUpdateParams(
+        address: 'auto',
+        name: 'auto',
+        shipping: 'auto',
+      );
+      expect(params.toJson(), {
+        'address': 'auto',
+        'name': 'auto',
+        'shipping': 'auto',
+      });
+    });
+
+    test('omits fields when not given', () {
+      const params = CheckoutSessionCustomerUpdateParams();
+      expect(params.toJson(), isEmpty);
+    });
+
+    test('toString summarises address, name and shipping', () {
+      const params = CheckoutSessionCustomerUpdateParams(address: 'auto');
+      expect(
+        params.toString(),
+        'CheckoutSessionCustomerUpdateParams('
+        'address: auto, name: null, shipping: null)',
+      );
+    });
+  });
+
   group('CheckoutSessionCreateParams.toJson', () {
     test('encodes required fields and the line_items array', () {
       const params = CheckoutSessionCreateParams(
@@ -121,6 +195,16 @@ void main() {
         clientReferenceId: 'order_1',
         locale: 'fr',
         allowPromotionCodes: true,
+        phoneNumberCollection:
+            CheckoutSessionPhoneNumberCollectionParams(enabled: true),
+        taxIdCollection: CheckoutSessionTaxIdCollectionParams(enabled: true),
+        automaticTax: CheckoutSessionAutomaticTaxParams(enabled: true),
+        customerUpdate: CheckoutSessionCustomerUpdateParams(
+          address: 'auto',
+          name: 'auto',
+          shipping: 'auto',
+        ),
+        billingAddressCollection: 'required',
       );
 
       expect(params.toJson(), {
@@ -140,7 +224,36 @@ void main() {
         'client_reference_id': 'order_1',
         'locale': 'fr',
         'allow_promotion_codes': true,
+        'phone_number_collection': {'enabled': true},
+        'tax_id_collection': {'enabled': true},
+        'automatic_tax': {'enabled': true},
+        'customer_update': {
+          'address': 'auto',
+          'name': 'auto',
+          'shipping': 'auto',
+        },
+        'billing_address_collection': 'required',
       });
+    });
+
+    test(
+        'omits phoneNumberCollection, taxIdCollection, automaticTax, '
+        'customerUpdate and billingAddressCollection when not given', () {
+      const params = CheckoutSessionCreateParams(
+        mode: CheckoutSessionMode.payment,
+        lineItems: [
+          CheckoutSessionLineItemParams(price: 'price_123', quantity: 1)
+        ],
+        successUrl: 'https://example.com/success',
+        cancelUrl: 'https://example.com/cancel',
+      );
+
+      final json = params.toJson();
+      expect(json.containsKey('phone_number_collection'), isFalse);
+      expect(json.containsKey('tax_id_collection'), isFalse);
+      expect(json.containsKey('automatic_tax'), isFalse);
+      expect(json.containsKey('customer_update'), isFalse);
+      expect(json.containsKey('billing_address_collection'), isFalse);
     });
 
     test('toString summarises mode and lineItems length', () {

@@ -60,6 +60,53 @@ void main() {
     });
   });
 
+  group('InvoiceTotalTaxRateDetails.fromJson', () {
+    test('decodes taxRate', () {
+      final details =
+          InvoiceTotalTaxRateDetails.fromJson({'tax_rate': 'txr_123'});
+      expect(details.taxRate, 'txr_123');
+    });
+
+    test('toString summarises taxRate', () {
+      const details = InvoiceTotalTaxRateDetails(taxRate: 'txr_123');
+      expect(
+        details.toString(),
+        'InvoiceTotalTaxRateDetails(taxRate: txr_123)',
+      );
+    });
+  });
+
+  group('InvoiceTotalTax.fromJson', () {
+    test('decodes a realistic payload', () {
+      final tax = InvoiceTotalTax.fromJson({
+        'amount': 80,
+        'tax_behavior': 'exclusive',
+        'taxability_reason': 'standard_rated',
+        'taxable_amount': 1999,
+        'tax_rate_details': {'tax_rate': 'txr_123'},
+      });
+
+      expect(tax.amount, 80);
+      expect(tax.taxBehavior, 'exclusive');
+      expect(tax.taxabilityReason, 'standard_rated');
+      expect(tax.taxableAmount, 1999);
+      expect(tax.taxRateDetails!.taxRate, 'txr_123');
+    });
+
+    test('leaves taxRateDetails null when absent', () {
+      final tax = InvoiceTotalTax.fromJson({'amount': 80});
+      expect(tax.taxRateDetails, isNull);
+    });
+
+    test('toString summarises amount and taxBehavior', () {
+      const tax = InvoiceTotalTax(amount: 80, taxBehavior: 'exclusive');
+      expect(
+        tax.toString(),
+        'InvoiceTotalTax(amount: 80, taxBehavior: exclusive)',
+      );
+    });
+  });
+
   group('InvoiceDiscountAmount.fromJson', () {
     test('decodes a bare discount id when unexpanded', () {
       final discountAmount =
@@ -134,6 +181,45 @@ void main() {
       expect(invoice.totalDiscountAmounts.first.discount!.id, 'di_123');
     });
 
+    test('decodes total_taxes on the current API version', () {
+      final invoice = Invoice.fromJson({
+        'id': 'in_123',
+        'object': 'invoice',
+        'total_taxes': [
+          {'amount': 80, 'tax_behavior': 'exclusive'},
+          {'amount': 20, 'tax_behavior': 'exclusive'},
+        ],
+      });
+
+      expect(invoice.totalTaxes, hasLength(2));
+      expect(invoice.totalTaxes.first.amount, 80);
+      expect(invoice.totalTaxAmounts, isEmpty);
+      expect(invoice.totalTaxAmount, 100);
+    });
+
+    test('sums totalTaxAmount from the legacy total_tax_amounts field', () {
+      final invoice = Invoice.fromJson({
+        'id': 'in_123',
+        'object': 'invoice',
+        'total_tax_amounts': [
+          {'amount': 80, 'inclusive': false},
+          {'amount': 20, 'inclusive': false},
+        ],
+      });
+
+      expect(invoice.totalTaxes, isEmpty);
+      expect(invoice.totalTaxAmounts, hasLength(2));
+      expect(invoice.totalTaxAmount, 100);
+    });
+
+    test('totalTaxAmount is null, not 0, when neither field is populated', () {
+      final invoice = Invoice.fromJson({'id': 'in_123', 'object': 'invoice'});
+
+      expect(invoice.totalTaxes, isEmpty);
+      expect(invoice.totalTaxAmounts, isEmpty);
+      expect(invoice.totalTaxAmount, isNull);
+    });
+
     test('decodes expanded discounts, reading promotion_code off each one', () {
       final invoice = Invoice.fromJson({
         'id': 'in_123',
@@ -159,12 +245,13 @@ void main() {
     });
 
     test(
-        'defaults discounts, totalTaxAmounts and totalDiscountAmounts to empty',
-        () {
+        'defaults discounts, totalTaxes, totalTaxAmounts and '
+        'totalDiscountAmounts to empty', () {
       final invoice = Invoice.fromJson({'id': 'in_123', 'object': 'invoice'});
 
       expect(invoice.discounts, isEmpty);
       expect(invoice.lines, isNull);
+      expect(invoice.totalTaxes, isEmpty);
       expect(invoice.totalTaxAmounts, isEmpty);
       expect(invoice.totalDiscountAmounts, isEmpty);
     });

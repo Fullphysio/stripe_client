@@ -106,6 +106,103 @@ final class CheckoutSessionSubscriptionDataParams {
       'trialPeriodDays: $trialPeriodDays)';
 }
 
+/// Whether to collect the customer's phone number on a Checkout Session.
+///
+/// See https://stripe.com/docs/api/checkout/sessions/create#create_checkout_session-phone_number_collection.
+final class CheckoutSessionPhoneNumberCollectionParams {
+  /// Creates phone number collection settings, enabling or disabling the
+  /// phone number field on the checkout page.
+  const CheckoutSessionPhoneNumberCollectionParams({required this.enabled});
+
+  /// Whether to display a phone number input on the checkout page.
+  final bool enabled;
+
+  /// Encodes this setting the way [CheckoutSessionCreateParams.toJson]
+  /// nests it under `phone_number_collection`.
+  Map<String, Object?> toJson() => {'enabled': enabled};
+
+  @override
+  String toString() =>
+      'CheckoutSessionPhoneNumberCollectionParams(enabled: $enabled)';
+}
+
+/// Whether to collect a tax ID from the customer on a Checkout Session.
+///
+/// See https://stripe.com/docs/api/checkout/sessions/create#create_checkout_session-tax_id_collection.
+final class CheckoutSessionTaxIdCollectionParams {
+  /// Creates tax ID collection settings, enabling or disabling the tax ID
+  /// field on the checkout page.
+  const CheckoutSessionTaxIdCollectionParams({required this.enabled});
+
+  /// Whether to display a tax ID input on the checkout page.
+  final bool enabled;
+
+  /// Encodes this setting the way [CheckoutSessionCreateParams.toJson]
+  /// nests it under `tax_id_collection`.
+  Map<String, Object?> toJson() => {'enabled': enabled};
+
+  @override
+  String toString() =>
+      'CheckoutSessionTaxIdCollectionParams(enabled: $enabled)';
+}
+
+/// Whether Stripe Tax should calculate tax automatically on a Checkout
+/// Session.
+///
+/// See https://stripe.com/docs/api/checkout/sessions/create#create_checkout_session-automatic_tax.
+final class CheckoutSessionAutomaticTaxParams {
+  /// Creates automatic tax settings, enabling or disabling Stripe Tax for
+  /// this session.
+  const CheckoutSessionAutomaticTaxParams({required this.enabled});
+
+  /// Whether Stripe Tax calculates tax automatically on this session.
+  final bool enabled;
+
+  /// Encodes this setting the way [CheckoutSessionCreateParams.toJson]
+  /// nests it under `automatic_tax`.
+  Map<String, Object?> toJson() => {'enabled': enabled};
+
+  @override
+  String toString() => 'CheckoutSessionAutomaticTaxParams(enabled: $enabled)';
+}
+
+/// Controls whether Checkout saves address, name, and shipping details back
+/// onto [CheckoutSessionCreateParams.customer], when the session has one.
+///
+/// See https://stripe.com/docs/api/checkout/sessions/create#create_checkout_session-customer_update.
+final class CheckoutSessionCustomerUpdateParams {
+  /// Creates customer-update settings. Each parameter accepts `'auto'` (let
+  /// Checkout decide) or `'never'` (leave the customer untouched); Stripe
+  /// rejects any other value.
+  const CheckoutSessionCustomerUpdateParams({
+    this.address,
+    this.name,
+    this.shipping,
+  });
+
+  /// Whether to save the address Checkout collects onto the customer.
+  final String? address;
+
+  /// Whether to save the name Checkout collects onto the customer.
+  final String? name;
+
+  /// Whether to save the shipping details Checkout collects onto the
+  /// customer.
+  final String? shipping;
+
+  /// Encodes this setting the way [CheckoutSessionCreateParams.toJson]
+  /// nests it under `customer_update`, omitting whichever fields are null.
+  Map<String, Object?> toJson() => {
+        if (address != null) 'address': address,
+        if (name != null) 'name': name,
+        if (shipping != null) 'shipping': shipping,
+      };
+
+  @override
+  String toString() => 'CheckoutSessionCustomerUpdateParams('
+      'address: $address, name: $name, shipping: $shipping)';
+}
+
 /// Parameters for creating a Checkout Session.
 ///
 /// See https://stripe.com/docs/api/checkout/sessions/create.
@@ -126,6 +223,11 @@ final class CheckoutSessionCreateParams {
     this.clientReferenceId,
     this.locale,
     this.allowPromotionCodes,
+    this.phoneNumberCollection,
+    this.taxIdCollection,
+    this.automaticTax,
+    this.customerUpdate,
+    this.billingAddressCollection,
   });
 
   /// Which kind of session to create.
@@ -170,6 +272,23 @@ final class CheckoutSessionCreateParams {
   /// checkout page.
   final bool? allowPromotionCodes;
 
+  /// Whether to collect the customer's phone number on the checkout page.
+  final CheckoutSessionPhoneNumberCollectionParams? phoneNumberCollection;
+
+  /// Whether to collect a tax ID from the customer on the checkout page.
+  final CheckoutSessionTaxIdCollectionParams? taxIdCollection;
+
+  /// Whether Stripe Tax calculates tax automatically for this session.
+  final CheckoutSessionAutomaticTaxParams? automaticTax;
+
+  /// Whether Checkout saves address, name, and shipping details back onto
+  /// [customer].
+  final CheckoutSessionCustomerUpdateParams? customerUpdate;
+
+  /// Whether to require a billing address on the checkout page: pass
+  /// `'required'` to force collection, or leave `null` to let Stripe decide.
+  final String? billingAddressCollection;
+
   /// Encodes these parameters the way [CheckoutSessionsService.create]
   /// sends them: [lineItems] and [discounts] become the indexed-array wire
   /// shape (`line_items[0][price]=...`) the existing form encoder produces
@@ -190,6 +309,14 @@ final class CheckoutSessionCreateParams {
         if (locale != null) 'locale': locale,
         if (allowPromotionCodes != null)
           'allow_promotion_codes': allowPromotionCodes,
+        if (phoneNumberCollection != null)
+          'phone_number_collection': phoneNumberCollection!.toJson(),
+        if (taxIdCollection != null)
+          'tax_id_collection': taxIdCollection!.toJson(),
+        if (automaticTax != null) 'automatic_tax': automaticTax!.toJson(),
+        if (customerUpdate != null) 'customer_update': customerUpdate!.toJson(),
+        if (billingAddressCollection != null)
+          'billing_address_collection': billingAddressCollection,
       };
 
   @override
