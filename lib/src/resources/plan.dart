@@ -21,6 +21,7 @@ final class Plan {
     this.currency,
     this.interval,
     this.intervalCount,
+    this.nickname,
   });
 
   /// Decodes [json] into a [Plan].
@@ -39,6 +40,7 @@ final class Plan {
         currency: json.optString('currency'),
         interval: json.optString('interval'),
         intervalCount: json.optInt('interval_count'),
+        nickname: json.optString('nickname'),
       );
 
   /// The plan's unique identifier.
@@ -62,6 +64,10 @@ final class Plan {
   /// The number of intervals (specified in [interval]) between subscription
   /// billings.
   final int? intervalCount;
+
+  /// A brief description of the plan, hidden from customers. Callers use it
+  /// as a display name when the expanded [product] is unavailable.
+  final String? nickname;
 
   @override
   String toString() => 'Plan(id: $id, amount: $amount, currency: $currency)';

@@ -1,3 +1,8 @@
+## 0.4.2
+
+- Add `nickname` to `Plan`. Subscription analytics fall back to it for the
+  display name when the product is not expanded.
+
 ## 0.4.1
 
 - Export the Checkout Session option classes and the invoice tax types added

@@ -39,6 +39,20 @@ void main() {
       expect(plan.product, isNull);
     });
 
+    test('decodes nickname when present', () {
+      final plan = Plan.fromJson({
+        'id': 'plan_123',
+        'object': 'plan',
+        'nickname': 'Annual Premium',
+      });
+      expect(plan.nickname, 'Annual Premium');
+    });
+
+    test('leaves nickname null when absent', () {
+      final plan = Plan.fromJson({'id': 'plan_123', 'object': 'plan'});
+      expect(plan.nickname, isNull);
+    });
+
     test('throws when id is missing', () {
       expect(
         () => Plan.fromJson(<String, Object?>{}),
