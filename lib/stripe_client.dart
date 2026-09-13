@@ -29,7 +29,11 @@ export 'src/errors.dart'
         StripeRateLimitError,
         StripeSignatureVerificationError,
         StripeUnknownError;
+export 'src/resources/billing_portal_session.dart'
+    show BillingPortalSession, BillingPortalSessionCreateParams;
+export 'src/transport/stripe_client.dart' show StripeClient;
 
-// Internal plumbing stays unexported: form encoding, crypto helpers and
-// header utilities are implementation detail, not API. The client, resources
-// and generated models are added here as those modules land.
+// Internal plumbing stays unexported: form encoding, crypto helpers, retry
+// policy and the namespace/service wiring behind StripeClient are
+// implementation detail, not API. Generated models are added here as that
+// module lands.

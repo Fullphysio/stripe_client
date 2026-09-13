@@ -19,6 +19,14 @@ no-comments or 120-column rules.
   (`Expandable`, `StripeList`, tolerant JSON readers, exceptions).
 - `lib/src/{models,params,services}/` — **generated, committed**. Never edit by
   hand; change the generator or the allowlist and regenerate.
+- `lib/src/transport/` — hand-written, permanent runtime (HTTP transport,
+  retry policy): never touched by a future generator, unlike the layer below.
+- `lib/src/resources/` — hand-written resources shipped before the generator
+  exists. Interim and disposable, not a permanent layer: each resource moves
+  out into `lib/src/{services,params,models}/` once the generator lands, so
+  this directory shrinks rather than grows. Kept separate from
+  `lib/src/{models,params,services}/` specifically so a future generator run
+  (and its `--check` drift job) never has hand-written code in its way.
 - `tool/` — the generator and the vendored OpenAPI spec.
 
 ## Codegen
