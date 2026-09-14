@@ -1,7 +1,7 @@
 # stripe_client
 
 A pure Dart client for the Stripe API. Runs on Dart servers, CLIs and Flutter
-apps — there is no Flutter dependency, and no code generation step for you.
+apps — there is no Flutter dependency, and no build step for you.
 
 ```dart
 final stripe = StripeClient(apiKey: Platform.environment['STRIPE_API_KEY']!);
@@ -24,9 +24,9 @@ that is complete was produced by a closed generator, so it cannot be
 regenerated and is pinned to a 2023 API version.
 
 This package takes the opposite approach: the runtime is a hand port of
-`stripe-node`, and the models are generated from Stripe's own OpenAPI
-specification by a generator that lives in this repository. Bumping the API
-version is a command, not a fork.
+`stripe-node`, and the models are written against Stripe's own OpenAPI
+specification, vendored in this repository and pinned by digest. Bumping the
+API version is a diff against that spec, not a fork of a closed generator.
 
 ## Webhooks
 
@@ -62,15 +62,34 @@ real `stripe-node`, not written by hand.
 
 ## Scope
 
-**Covered.** The v1 API: Checkout, Billing Portal, Customers, Subscriptions,
-Prices, Products, Invoices, Promotion Codes, Coupons, Discounts, Events,
-Customer Balance Transactions, Payment Intents, Charges, Refunds, Setup
-Intents and Payment Methods — plus webhook verification and auto-pagination.
+This is an early release, and the operations below are the whole of it:
 
-**Not covered.** The v2 API, Connect, Issuing, Terminal, Tax registrations,
-file uploads, and Stripe's realtime/SSE surfaces. The generator's allowlist is
-one file; widening it is a small change, so open an issue if you need a
-resource that is missing.
+| Namespace | Operations |
+|---|---|
+| `checkout.sessions` | `create` |
+| `billingPortal.sessions` | `create` |
+| `customers` | `retrieve`, `update`, `createBalanceTransaction` |
+| `subscriptions` | `retrieve`, `list` |
+| `promotionCodes` | `create`, `retrieve`, `list` |
+| `invoices` | `retrieve` |
+| `prices` | `retrieve` |
+| `products` | `retrieve` |
+
+Plus webhook signature verification, and decoding for the objects those
+operations and webhook payloads return — including `Coupon`, `Discount`,
+`Event`, `Plan`, `InvoiceLineItem` and `SubscriptionItem`.
+
+**Not here yet.** Pagination past one page: `list` takes a `limit` but no
+`starting_after` cursor, so it cannot walk beyond 100 objects. Writes other
+than the ones above (no `subscriptions.update`, no `invoices.list`). Payment
+Intents, Charges, Refunds, Setup Intents and Payment Methods as resources —
+they appear only in `StripeCardError`'s fields today.
+
+**Out of scope.** The v2 API, Connect, Issuing, Terminal, Tax registrations,
+file uploads, and Stripe's realtime/SSE surfaces.
+
+Adding a missing operation is a small, mechanical change against the vendored
+spec — open an issue if you need one.
 
 ## Relationship to stripe-node and to Stripe
 

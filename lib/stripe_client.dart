@@ -6,9 +6,9 @@
 ///
 /// The runtime behaviour is a deliberate port of the official Node client,
 /// `stripe-node` 19.3.1 — retry policy, backoff, idempotency-key generation,
-/// webhook signature verification, pagination cursors and error mapping all
-/// follow that implementation. Typed models are generated from Stripe's
-/// OpenAPI specification at revision v2111.
+/// webhook signature verification and error mapping all follow that
+/// implementation. Typed models are written against Stripe's OpenAPI
+/// specification at revision v2111, vendored in the repository.
 library;
 
 export 'src/core/exceptions.dart' show StripeDecodeException;

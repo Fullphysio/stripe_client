@@ -10,3 +10,10 @@ doc/api/
 # live in the repository, but shipping them would put 8 MB of JSON into every
 # consumer's pub cache for no runtime benefit.
 tool/
+
+# `test/tool/` exercises the generator IR, which lives under the excluded
+# `tool/`. Shipping it would put an unresolvable import in the archive.
+test/tool/
+
+# Contributor instructions, not consumer documentation.
+CLAUDE.md

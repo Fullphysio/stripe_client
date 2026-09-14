@@ -224,12 +224,12 @@ final class Subscription {
   ///
   /// Stripe removed `current_period_start` from the subscription object
   /// itself in API version `2025-03-31.basil`; it now lives only on each
-  /// [SubscriptionItem]. This getter reads it off [items]`.data.first` so
-  /// existing call sites keep working, returning `null` when [items] is
-  /// empty. A subscription with more than one item could in principle have
-  /// items in different billing periods, but every caller of this package
-  /// already assumes a single period per subscription, so reading the first
-  /// item matches that assumption rather than introducing a new one.
+  /// [SubscriptionItem]. This getter reads it off [items]`.data.first`,
+  /// returning `null` when [items] is empty.
+  ///
+  /// A subscription whose items bill on different periods has no single
+  /// period, and this getter does not represent one: read
+  /// [SubscriptionItem.currentPeriodStart] per item instead.
   DateTime? get currentPeriodStart =>
       items.data.isEmpty ? null : items.data.first.currentPeriodStart;
 

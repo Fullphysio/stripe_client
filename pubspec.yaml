@@ -3,7 +3,7 @@ description: >-
   Pure Dart client for the Stripe API: typed resources, webhook signature
   verification, automatic retries and idempotency keys. Runs on Dart servers,
   CLIs and Flutter apps.
-version: 0.4.2
+version: 0.1.0
 repository: https://github.com/Fullphysio/stripe_client
 issue_tracker: https://github.com/Fullphysio/stripe_client/issues
 

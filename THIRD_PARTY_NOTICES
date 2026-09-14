@@ -8,8 +8,9 @@ Its request encoder delegates to the `qs` package
 (https://github.com/ljharb/qs), version 6.14.2, whose serialisation semantics
 this package reproduces.
 
-Typed models are generated from Stripe's OpenAPI specification
-(https://github.com/stripe/openapi), revision v2111.
+Typed models are derived from Stripe's OpenAPI specification
+(https://github.com/stripe/openapi), revision v2111, vendored in this
+repository.
 
 The notices below are reproduced as required by their licences.
 
