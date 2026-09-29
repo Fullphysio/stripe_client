@@ -1,7 +1,15 @@
 # stripe_client
 
-A pure Dart client for the Stripe API. Runs on Dart servers, CLIs and Flutter
-apps — there is no Flutter dependency, and no build step for you.
+[![pub package](https://img.shields.io/pub/v/stripe_client.svg)](https://pub.dev/packages/stripe_client)
+[![CI](https://github.com/Fullphysio/stripe_client/actions/workflows/ci.yml/badge.svg)](https://github.com/Fullphysio/stripe_client/actions/workflows/ci.yml)
+
+A pure Dart client for the Stripe API. Runs on Dart servers, CLIs and Cloud
+Functions — there is no Flutter dependency, and no build step for you.
+
+Used in production at [Fullphysio](https://www.fullphysio.com), where it runs inside our Dart Cloud Functions. Bug reports are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+> [!WARNING]
+> This client uses your **secret** API key. Run it on a server, a Cloud Function or a CLI — never ship it inside a Flutter app, where the key can be extracted. For in-app payment UI use [`flutter_stripe`](https://pub.dev/packages/flutter_stripe).
 
 ```dart
 final stripe = StripeClient(apiKey: Platform.environment['STRIPE_API_KEY']!);

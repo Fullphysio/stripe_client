@@ -1,3 +1,8 @@
+## 0.1.1
+
+- The README and package description now say this client belongs on servers, Cloud Functions and CLIs, never inside a Flutter app, because it uses the secret API key.
+- Add CONTRIBUTING.md, and pub/CI badges to the README.
+
 ## 0.1.0
 
 Initial release.
