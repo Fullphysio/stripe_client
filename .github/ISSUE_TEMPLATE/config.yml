@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Stripe API reference
+    url: https://docs.stripe.com/api
+    about: What the Stripe API accepts and returns. Questions about Stripe itself go to Stripe support.
